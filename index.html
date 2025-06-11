@@ -430,6 +430,7 @@
       <ul role="list" aria-label="Primary navigation links">
         <li><a href="#about" tabindex="0">About</a></li>
         <li><a href="#searchForm" tabindex="0">Search Results</a></li>
+        <li><a href="admin-panel.html" tabindex="0" target="_blank" rel="noopener noreferrer">Admin Panel</a></li>
       </ul>
     </nav>
   </header>
@@ -490,7 +491,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const studentResults = [
+      const storageKey = 'kkuniversityStudentResults';
+      const savedResults = localStorage.getItem(storageKey);
+      const defaultResults = [
         {
           name: "Richie Ravi",
           studentId: "KKU12345",
@@ -551,13 +554,24 @@
           }
         }
       ];
+
+      // Use savedResults if available, else defaultResults
+      const studentResults = savedResults ? JSON.parse(savedResults) : defaultResults;
+
+      // Save data helper
+      const saveResults = () => {
+        localStorage.setItem(storageKey, JSON.stringify(studentResults));
+      };
+
       const form = document.getElementById('searchForm');
       const resultSection = document.getElementById('searchResult');
       const getStartedBtn = document.getElementById('getStartedBtn');
+
       getStartedBtn.addEventListener('click', () => {
         form.scrollIntoView({ behavior: 'smooth' });
         form.name.focus();
       });
+
       form.addEventListener('submit', e => {
         e.preventDefault();
         const name = form.name.value.trim().toLowerCase();
@@ -576,6 +590,7 @@
           displayNotFound();
         }
       });
+
       function displayResult(student) {
         resultSection.innerHTML = `
           <article>
@@ -601,6 +616,7 @@
           generatePdf(student);
         });
       }
+
       function displayNotFound() {
         resultSection.innerHTML = `
           <div role="alert" tabindex="0">
@@ -611,9 +627,11 @@
         resultSection.classList.add('show');
         resultSection.scrollIntoView({ behavior: 'smooth' });
       }
+
       const pdfLogoUrl = 'https://i.ibb.co/99tchbK9/kk-logo.png';
       const pdfLogoWidth = 30;
       const pdfLogoHeight = 30;
+
       function generatePdf(student) {
         const currentDate = new Date().toLocaleString();
         const { jsPDF } = window.jspdf;
@@ -654,7 +672,6 @@
           doc.setLineWidth(0.3);
           doc.line(paddingLeft, y, pageWidth - paddingLeft, y);
           y += 8;
-          // Table with borders and uppercase text
           const tableX = paddingLeft;
           const col1Width = 100;
           const col2Width = 40;
@@ -664,10 +681,8 @@
           doc.setTextColor("#111827");
           doc.setDrawColor(0);
           doc.setLineWidth(0.5);
-          // Draw outer border of table
           const tableHeight = (Object.keys(student.result).length + 1) * rowHeight;
           doc.rect(tableX, y, col1Width + col2Width, tableHeight);
-          // Draw header cells with black border and fill white for minimalism
           doc.setFillColor(255, 255, 255);
           doc.rect(tableX, y, col1Width, rowHeight, 'F');
           doc.rect(tableX + col1Width, y, col2Width, rowHeight, 'F');
@@ -675,13 +690,9 @@
           doc.text("MARKS", tableX + col1Width + col2Width/2, y + 7, { align: "center" });
           y += rowHeight;
           doc.setFont("helvetica", "normal");
-          // Draw rows with borders
           Object.entries(student.result).forEach(([subject, mark], index) => {
-            // Subject cell border
             doc.rect(tableX, y, col1Width, rowHeight);
-            // Marks cell border
             doc.rect(tableX + col1Width, y, col2Width, rowHeight);
-            // Text uppercase
             doc.text(subject.toUpperCase(), tableX + 5, y + 7);
             doc.text(mark.toUpperCase(), tableX + col1Width + col2Width/2, y + 7, { align: "center" });
             y += rowHeight;
@@ -729,6 +740,7 @@
         };
         img.src = pdfLogoUrl;
       }
+
       function escapeHtml(text) {
         const div = document.createElement('div');
         div.appendChild(document.createTextNode(text));
