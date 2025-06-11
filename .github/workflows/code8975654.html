@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>K.K. University Nalanda Result Search Portal</title>
+  <meta name="description" content="K.K. University Nalanda result search portal. Quickly find your exam results by entering your details. Official result lookup for students with downloadable mark sheets." />
+  <meta name="robots" content="index, follow" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "K.K. University Nalanda",
+    "url": "https://kkuniversitynalanda.example.edu",
+    "logo": "https://i.ibb.co/99tchbK9/kk-logo.png",
+    "sameAs": [
+      "https://www.facebook.com/kkuniversitynalanda",
+      "https://twitter.com/kkunvdalanda",
+      "https://www.linkedin.com/school/kkuniversitynalanda"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Berauti",
+      "addressLocality": "Nalanda",
+      "addressRegion": "Bihar",
+      "postalCode": "803101",
+      "addressCountry": "IN"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --color-bg: #ffffff;
+      --color-text-primary: #111827;
+      --color-text-secondary: #6b7280;
+      --border-radius: 0.75rem;
+      --transition-default: 0.3s ease;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      background: conic-gradient(from 0deg, white, royalblue, pink, white);
+      font-family: 'Inter', sans-serif;
+      color: var(--color-text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      scroll-behavior: smooth;
+    }
+    main.container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1rem 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background-color: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      z-index: 50;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+    }
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      text-decoration: none;
+    }
+    .logo-container img {
+      height: 48px;
+      width: 48px;
+      border-radius: var(--border-radius);
+    }
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+    nav ul li a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color var(--transition-default);
+    }
+    nav ul li a:hover,
+    nav ul li a:focus-visible {
+      color: var(--color-text-primary);
+      outline: none;
+    }
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-text-primary);
+      border-radius: 9999px;
+      transition: width var(--transition-default);
+    }
+    nav ul li a:hover::after,
+    nav ul li a:focus-visible::after {
+      width: 100%;
+    }
+    section.hero {
+      text-align: center;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--color-text-primary);
+    }
+    .hero h1 span {
+      color: #0F52BA;
+      font-family: serif;
+    }
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .hero button.cta {
+      background-color: var(--color-text-primary);
+      color: white;
+      font-weight: 700;
+      padding: 1rem 3rem;
+      border-radius: var(--border-radius);
+      border: none;
+      cursor: pointer;
+      font-size: 1.25rem;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      min-width: 180px;
+    }
+    .hero button.cta:hover,
+    .hero button.cta:focus {
+      background-color: #2563eb;
+      outline-offset: 4px;
+      outline: 3px solid #2563eb;
+      transform: scale(1.05);
+    }
+    .hero button.cta:focus-visible {
+      outline-offset: 4px;
+      outline: 3px solid #2563eb;
+    }
+    .hero h4 {
+      color: var(--color-text-primary);
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-weight: 600;
+      user-select: none;
+    }
+    form#searchForm {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 10px;
+      max-width: 480px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 3rem 4rem;
+      box-shadow:
+        0px 8px 32px rgba(31,38,135,0.37),
+        -4px -4px 8px rgba(0,0,0,0.03);
+      border: 4px solid rgba(255,255,255,0.18);
+      color: #1f2937;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 0.1rem;
+    }
+    form#searchForm > div {
+      display: flex;
+      flex-direction: column;
+    }
+    form#searchForm label {
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+    form#searchForm input[type="text"],
+    form#searchForm select {
+      font-weight: 500;
+      border-radius: 0.5rem;
+      border: 1.5px solid #d1d5db;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      color: #374151;
+      background: white;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    form#searchForm input[type="text"]:focus,
+    form#searchForm select:focus {
+      outline: none;
+      border-color: #2563eb;
+      background: white;
+      box-shadow: 0 0 6px #2563eb;
+    }
+    form#searchForm button[type="submit"] {
+      background: var(--color-text-primary);
+      color: white;
+      font-weight: 700;
+      border-radius: var(--border-radius);
+      padding: 1rem 2.5rem;
+      font-size: 1.125rem;
+      cursor: pointer;
+      border: none;
+      align-self: center;
+      min-width: 140px;
+      max-width: 100%;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      box-sizing: border-box;
+    }
+    form#searchForm button[type="submit"]:hover,
+    form#searchForm button[type="submit"]:focus {
+      background: #2563eb;
+      outline-offset: 3px;
+      outline: 3px solid #2563eb;
+      transform: scale(1.05);
+    }
+    form#searchForm button[type="submit"]:active {
+      transform: scale(0.95);
+    }
+    #searchResult {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #f9fafb;
+      padding: 1.5rem 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+      font-weight: 600;
+      color: #374151;
+      user-select: text;
+      display: none;
+      box-sizing: border-box;
+    }
+    #searchResult.show {
+      display: block;
+    }
+    #searchResult article h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--color-text-primary);
+    }
+    #searchResult p {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #4b5563;
+    }
+    #searchResult h3 {
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 0.25rem;
+      color: #6b7280;
+    }
+    #searchResult ul {
+      list-style-type: disc;
+      padding-left: 1.25rem;
+      color: #6b7280;
+    }
+    #searchResult li {
+      margin-bottom: 0.35rem;
+      font-weight: 500;
+    }
+    #searchResult > div[role=alert] {
+      background-color: #fee2e2;
+      border-left: 4px solid #ef4444;
+      color: #b91c1c;
+      padding: 1rem 1.25rem;
+      border-radius: var(--border-radius);
+      font-weight: 700;
+      font-size: 1rem;
+      user-select: none;
+      outline-offset: 4px;
+    }
+    #about {
+      max-width: 1200px;
+      text-align: center;
+      margin: 4rem auto 2rem;
+      color: #6b7280;
+      font-size: 1rem;
+      font-weight: 500;
+      user-select: none;
+    }
+    footer {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      padding: 2rem 1rem;
+      text-align: center;
+      color: var(--color-text-primary);
+      font-size: 0.95rem;
+      user-select: none;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.05);
+      box-sizing: border-box;
+    }
+    footer small {
+      display: block;
+      margin-top: 0.25rem;
+    }
+    @media (max-width: 640px) {
+      main.container {
+        padding-top: 2.5rem;
+        padding-bottom: 3rem;
+        gap: 3rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+        padding: 0 1rem;
+      }
+      .hero p {
+        font-size: 1rem;
+        padding: 0 1rem;
+      }
+      .hero button.cta {
+        font-size: 1.15rem;
+        padding: 1rem 2rem;
+        min-width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        display: block;
+        box-sizing: border-box;
+      }
+      form#searchForm {
+        max-width: 100%;
+        padding: 2rem 1.5rem;
+        box-shadow:
+          0px 6px 24px rgba(31,38,135,0.15),
+          -2px -2px 6px rgba(0,0,0,0.02);
+        border-width: 3px;
+        width: 100%;
+      }
+      form#searchForm > div {
+        gap: 0.5rem;
+      }
+      form#searchForm label {
+        font-size: 1rem;
+      }
+      form#searchForm input[type="text"],
+      form#searchForm select {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+      }
+      form#searchForm button[type="submit"] {
+        font-size: 1.125rem;
+        padding: 1rem;
+        width: 100%;
+        max-width: none;
+        border-radius: 10px;
+        box-sizing: border-box;
+        min-width: auto;
+      }
+      #searchResult {
+        max-width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+      }
+      #searchResult article h2 {
+        font-size: 1.4rem;
+      }
+      #searchResult h3 {
+        font-size: 1rem;
+      }
+      nav ul {
+        gap: 1.25rem;
+      }
+      nav ul li a {
+        font-size: 1rem;
+      }
+      header nav {
+        padding: 0.75rem 1rem;
+      }
+      footer {
+        padding: 1.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 3px solid #2563eb;
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+  <header role="banner" aria-label="Primary navigation">
+    <nav>
+      <a href="#" class="logo-container" aria-label="K.K. University Nalanda Homepage">
+        <img src="https://i.ibb.co/99tchbK9/kk-logo.png" alt="K.K. University Logo, blue and white shield emblem" loading="lazy" />
+        <span>K.K.UNIVERSITY NALANDA</span>
+      </a>
+      <ul role="list" aria-label="Primary navigation links">
+        <li><a href="#about" tabindex="0">About</a></li>
+        <li><a href="#searchForm" tabindex="0">Search Results</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main role="main" class="container">
+    <section class="hero" aria-label="University result portal hero section">
+      <h1>K.K. University Nalanda <span>Result Portal</span></h1>
+      <p>Welcome to the K.K. University Nalanda Result Search Portal. Quickly find your exam results by entering your details below.</p>
+      <button class="cta" aria-label="Get started" id="getStartedBtn">Get Started</button>
+      <p>Enter your details below to find your exam results quickly and easily.</p>
+      <h4>Please ensure all information is accurate to retrieve your results.</h4>
+    </section>
+    <form id="searchForm" aria-label="Student result search form">
+      <div>
+        <h2 class="text-center text-blue-700 font-bold text-3xl mb-4" align="center"><font color="royalblue">Student Result</font></h2>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required autocomplete="name" />
+      </div>
+      <div>
+        <label for="studentId">Student ID Number</label>
+        <input type="text" id="studentId" name="studentId" placeholder="Enter your student ID number" required autocomplete="off" />
+      </div>
+      <div>
+        <label for="department">Department</label>
+        <select id="department" name="department" required>
+          <option value="" disabled selected>Select department</option>
+          <option value="b.c.a">B.C.A</option>
+          <option value="m.c.a">M.C.A</option>
+          <option value="b.tech">B.tech</option>
+          <option value="m.tech">M.tech</option>
+          <option value="polythechnic">Polythechnic</option>
+          <option value="agriculture">Agriculture</option>
+          <option value="pharmacy">Pharmacy</option>
+          <option value="b.ed">B.ed</option>
+          <option value="b.sc">B.sc</option>
+          <option value="d.led">D.led</option>
+        </select>
+      </div>
+      <div>
+        <label for="session">Academic Session</label>
+        <input type="text" id="session" name="session" placeholder="e.g. 2020-2021" required autocomplete="off" />
+      </div>
+      <div>
+        <button type="submit" aria-label="Search for student result">Search</button>
+      </div>
+    </form>
+    <section id="searchResult" aria-live="polite" aria-atomic="true" aria-label="Search results section"></section>
+    <section id="about" aria-label="About K.K. University Nalanda" class="mt-20 text-center">
+      &copy; 2025 K.K. University Nalanda — Result Portal
+    </section>
+  </main>
+  <footer role="contentinfo">
+    <div>
+      <p class="font-bold">K.K. University Nalanda</p>
+      <small>Berauti, Nalanda, Bihar - 803101</small>
+      <small>© 2025 K.K. University Nalanda - All rights reserved.</small>
+    </div>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const studentResults = [
+        {
+          name: "Richie Ravi",
+          studentId: "KKU12345",
+          department: "b.tech",
+          session: "2020-2024",
+          result: {
+            "Mathematics": "85%",
+            "Python Programming": "90%",
+            "Physics": "78%",
+            "Chemistry": "80%",
+            "Soft Skills": "88%"
+          }
+        },
+        {
+          name: "Anjali Singh",
+          studentId: "KKU23456",
+          department: "b.c.a",
+          session: "2019-2022",
+          result: {
+            "Quantum Mechanics": "88%",
+            "Electromagnetism": "92%",
+            "Mathematics": "85%",
+            "Programming": "90%"
+          }
+        },
+        {
+          name: "Mohit Verma",
+          studentId: "KKU34567",
+          department: "pharmacy",
+          session: "2021-2022",
+          result: {
+            "Accounting": "75%",
+            "Business Studies": "82%",
+            "Economics": "79%"
+          }
+        },
+        {
+          name: "Priya Sharma",
+          studentId: "KKU45678",
+          department: "m.tech",
+          session: "2022-2024",
+          result: {
+            "Advanced Algorithms": "91%",
+            "Machine Learning": "94%",
+            "Data Structures": "89%",
+            "Database Systems": "88%"
+          }
+        },
+        {
+          name: "Arjun Patel",
+          studentId: "KKU56789",
+          department: "agriculture",
+          session: "2020-2021",
+          result: {
+            "Soil Science": "27%",
+            "Crop Production": "30%",
+            "Animal Husbandry": "85%"
+          }
+        }
+      ];
+      const form = document.getElementById('searchForm');
+      const resultSection = document.getElementById('searchResult');
+      const getStartedBtn = document.getElementById('getStartedBtn');
+      getStartedBtn.addEventListener('click', () => {
+        form.scrollIntoView({ behavior: 'smooth' });
+        form.name.focus();
+      });
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const name = form.name.value.trim().toLowerCase();
+        const studentId = form.studentId.value.trim().toLowerCase();
+        const department = form.department.value.toLowerCase().trim();
+        const session = form.session.value.trim().toLowerCase();
+        const found = studentResults.find(student =>
+          student.name.toLowerCase() === name &&
+          student.studentId.toLowerCase() === studentId &&
+          student.department.toLowerCase() === department &&
+          student.session.toLowerCase() === session
+        );
+        if (found) {
+          displayResult(found);
+        } else {
+          displayNotFound();
+        }
+      });
+      function displayResult(student) {
+        resultSection.innerHTML = `
+          <article>
+            <h2>Result for ${escapeHtml(student.name)}</h2>
+            <p><strong>Name:</strong> ${escapeHtml(student.name)}</p>
+            <p><strong>Student ID:</strong> ${escapeHtml(student.studentId)}</p>
+            <p><strong>Department:</strong> ${escapeHtml(student.department)}</p>
+            <p><strong>Session:</strong> ${escapeHtml(student.session)}</p>
+            <h3>Grades:</h3>
+            <ul>
+              ${Object.entries(student.result).map(([subject, grade]) =>
+                `<li><strong>${escapeHtml(subject)}:</strong> ${escapeHtml(grade)}</li>`
+              ).join('')}
+            </ul>
+            <div class="mt-6 flex justify-center">
+              <button id="downloadBtn" class="cta" aria-label="Download result as PDF">Download PDF</button>
+            </div>
+          </article>
+        `;
+        resultSection.classList.add('show');
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+          generatePdf(student);
+        });
+      }
+      function displayNotFound() {
+        resultSection.innerHTML = `
+          <div role="alert" tabindex="0">
+            <p>No results found.</p>
+            <p>Please check your input and try again.</p>
+          </div>
+        `;
+        resultSection.classList.add('show');
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+      }
+      const pdfLogoUrl = 'https://i.ibb.co/99tchbK9/kk-logo.png';
+      const pdfLogoWidth = 30;
+      const pdfLogoHeight = 30;
+      function generatePdf(student) {
+        const currentDate = new Date().toLocaleString();
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        let y = 20;
+        const paddingLeft = 20;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = function() {
+          doc.addImage(img, 'PNG', paddingLeft, y - 12, pdfLogoWidth, pdfLogoHeight);
+          doc.setFontSize(20);
+          doc.setFont("helvetica", "bold");
+          doc.text("K.K. University Nalanda", paddingLeft + pdfLogoWidth + 8, y + 8);
+          const headerTextWidth = doc.getTextWidth("K.K. University Nalanda");
+          doc.setDrawColor(10, 75, 161);
+          doc.setLineWidth(0.8);
+          doc.line(paddingLeft + pdfLogoWidth + 8, y + 12, paddingLeft + pdfLogoWidth + 8 + headerTextWidth, y + 12);
+          y += pdfLogoHeight + 14;
+          doc.setFontSize(24);
+          doc.setTextColor("#111827");
+          doc.text("Marksheet", pageWidth / 2, y, { align: "center" });
+          y += 18;
+          doc.setDrawColor(200);
+          doc.setLineWidth(0.5);
+          doc.line(paddingLeft, y, pageWidth - paddingLeft, y);
+          y += 12;
+          doc.setFontSize(14);
+          doc.setTextColor("#374151");
+          doc.setFont("helvetica", "normal");
+          doc.text(`Name: ${student.name}`, paddingLeft, y);
+          doc.text(`Student ID: ${student.studentId}`, pageWidth/2 + 10, y);
+          y += 8;
+          doc.text(`Department: ${student.department}`, paddingLeft, y);
+          doc.text(`Session: ${student.session}`, pageWidth/2 + 10, y);
+          y += 14;
+          doc.setDrawColor(200);
+          doc.setLineWidth(0.3);
+          doc.line(paddingLeft, y, pageWidth - paddingLeft, y);
+          y += 8;
+          // Table with borders and uppercase text
+          const tableX = paddingLeft;
+          const col1Width = 100;
+          const col2Width = 40;
+          const rowHeight = 10;
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(12);
+          doc.setTextColor("#111827");
+          doc.setDrawColor(0);
+          doc.setLineWidth(0.5);
+          // Draw outer border of table
+          const tableHeight = (Object.keys(student.result).length + 1) * rowHeight;
+          doc.rect(tableX, y, col1Width + col2Width, tableHeight);
+          // Draw header cells with black border and fill white for minimalism
+          doc.setFillColor(255, 255, 255);
+          doc.rect(tableX, y, col1Width, rowHeight, 'F');
+          doc.rect(tableX + col1Width, y, col2Width, rowHeight, 'F');
+          doc.text("SUBJECT", tableX + 5, y + 7);
+          doc.text("MARKS", tableX + col1Width + col2Width/2, y + 7, { align: "center" });
+          y += rowHeight;
+          doc.setFont("helvetica", "normal");
+          // Draw rows with borders
+          Object.entries(student.result).forEach(([subject, mark], index) => {
+            // Subject cell border
+            doc.rect(tableX, y, col1Width, rowHeight);
+            // Marks cell border
+            doc.rect(tableX + col1Width, y, col2Width, rowHeight);
+            // Text uppercase
+            doc.text(subject.toUpperCase(), tableX + 5, y + 7);
+            doc.text(mark.toUpperCase(), tableX + col1Width + col2Width/2, y + 7, { align: "center" });
+            y += rowHeight;
+          });
+          y += 10;
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor("#111827");
+          doc.setFontSize(16);
+          doc.text("Result Analysis", paddingLeft, y);
+          y += 10;
+          const failedSubjects = Object.entries(student.result).filter(([_, mark]) => {
+            const numericMark = parseInt(mark.replace('%',''));
+            return numericMark < 35;
+          });
+          const passed = failedSubjects.length === 0;
+          if (passed) {
+            doc.setTextColor("#16a34a");
+            doc.setFontSize(14);
+            doc.text("Status: PASSED", paddingLeft, y);
+          } else {
+            doc.setTextColor("#dc2626");
+            doc.setFontSize(14);
+            doc.text("Status: FAILED", paddingLeft, y);
+            y += 10;
+            doc.setTextColor("#b91c1c");
+            doc.setFont("helvetica", "normal");
+            doc.text("Subjects failed:", paddingLeft, y);
+            y += 8;
+            failedSubjects.forEach(([subject], i) => {
+              doc.text(`- ${subject.toUpperCase()}`, paddingLeft + 8, y + i*7);
+            });
+          }
+          y += 30;
+          doc.setDrawColor(200);
+          doc.setLineWidth(0.5);
+          doc.line(paddingLeft, 280, pageWidth - paddingLeft, 280);
+          doc.setFontSize(10);
+          doc.setTextColor("#6b7280");
+          doc.text(`Generated on: ${currentDate}`, paddingLeft, 290);
+          doc.text(`Page 1 / 1`, pageWidth - paddingLeft, 290, { align: "right" });
+          doc.save(`Marksheet_${student.studentId}.pdf`);
+        };
+        img.onerror = function() {
+          alert('Failed to load logo image for PDF');
+        };
+        img.src = pdfLogoUrl;
+      }
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.appendChild(document.createTextNode(text));
+        return div.innerHTML;
+      }
+    });
+  </script>
+</body>
+</html>
+
